@@ -57,7 +57,8 @@ class Decoder(nn.Module):
         )
 
     def forward(self, features, gt_norm_mask=None, mode='test'):
-        x_block0, x_block1, x_block2, x_block3, x_block4 = features[4], features[5], features[6], features[8], features[11]
+        # x_block0, x_block1, x_block2, x_block3, x_block4 = features[4], features[5], features[6], features[8], features[11]
+        x_block0, x_block1, x_block2, x_block3, x_block4 = features[2], features[3], features[4], features[6], features[8]
 
         # generate feature-map
 
