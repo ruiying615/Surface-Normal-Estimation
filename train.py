@@ -243,10 +243,10 @@ if __name__ == '__main__':
 
     # training
     parser.add_argument('--n_epochs', default=5, type=int, help='number of total epochs to run')
-    parser.add_argument('--batch_size', default=4, type=int)
+    parser.add_argument('--batch_size', default=2, type=int)
     parser.add_argument('--validate_every', default=5000, type=int, help='validation period')
     parser.add_argument('--visualize_every', default=1000, type=int, help='visualization period')
-    parser.add_argument("--distributed", default=True, action="store_true", help="Use DDP if set")
+    parser.add_argument("--distributed", default=False, action="store_true", help="Use DDP if set")
     parser.add_argument("--workers", default=12, type=int, help="Number of workers for data loading")
 
     # optimizer setup
