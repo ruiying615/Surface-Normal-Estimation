@@ -3,5 +3,4 @@ torchvision
 Pillow
 numpy
 matplotlib
-argparse
 tqdms
