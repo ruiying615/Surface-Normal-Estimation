@@ -4,4 +4,4 @@ Pillow
 numpy
 matplotlib
 argparse
-tqdm
+tqdms

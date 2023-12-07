@@ -3,7 +3,7 @@ import os
 import sys
 import numpy as np
 from tqdm import tqdm
-
+import gc
 import torch
 import torch.distributed as dist
 import torch.multiprocessing as mp
@@ -62,6 +62,9 @@ def train(model, args, device):
     # start training
     total_iter = 0
     model.train()
+    # model.encoder.eval()
+    # for p in model.encoder.parameters():
+    #     p.requires_grad = False
     for epoch in range(args.n_epochs):
         if args.rank == 0:
             t_loader = tqdm(train_loader, desc=f"Epoch: {epoch + 1}/{args.n_epochs}. Loop: Train")
@@ -124,6 +127,10 @@ def train(model, args, device):
         torch.save({"model": model.state_dict(),
                     "iter": total_iter}, target_path)
         print('model saved / path: {}'.format(target_path))
+        for p in model.parameters():
+            p.require_grads = False
+        torch.cuda.empty_cache()
+        gc.collect()
         validate(model, args, test_loader, device, total_iter, args.eval_acc_txt)
 
         # empty cache
@@ -229,7 +236,7 @@ if __name__ == '__main__':
 
     # directory
     parser.add_argument('--exp_dir', default='./experiments', type=str, help='directory to store experiment results')
-    parser.add_argument('--exp_name', default='exp00_test', type=str, help='experiment name')
+    parser.add_argument('--exp_name', default='exp01_test', type=str, help='experiment name')
     parser.add_argument('--visible_gpus', default='01', type=str, help='gpu to use')
 
     # model architecture

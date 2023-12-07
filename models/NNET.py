@@ -10,12 +10,14 @@ class NNET(nn.Module):
     def __init__(self, args):
         super(NNET, self).__init__()
         self.encoder = Encoder()
+        # for p in self.encoder.parameters():
+        #     p.requires_grad = False
         self.decoder = Decoder(args)
 
-    def get_1x_lr_params(self):  # lr/10 learning rate
+    def get_1x_lr_params(self): 
         return self.encoder.parameters()
 
-    def get_10x_lr_params(self):  # lr learning rate
+    def get_10x_lr_params(self):  
         return self.decoder.parameters()
 
     def forward(self, img, **kwargs):
